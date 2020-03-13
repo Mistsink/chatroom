@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登陆页面</title>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+        }
+
+        .login {
+            margin: 0 auto;
+            width: 500px;
+            height: 300px;
+            background-image: linear-gradient(to right, #f40, skyblue);
+            border-radius: 50px;
+            border: #f40 1px solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>欢迎登陆聊天室</h1>
+    <div class="login">
+        <form action="/checkuser" method="GET">
+            <p>
+                你想用啥昵称嘞？
+            </p>
+            <input type="text" name="username" placeholder="还不给我输昵称？？" />
+
+            <input type="submit" value="赶紧进去吧！！" />
+        </form>
+    </div>
+</body>
+
+</html>

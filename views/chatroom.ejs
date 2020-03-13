@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatroom</title>
+    <style type="text/css">
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .chat-box {
+            width: 100%;
+            border: 1px skyblue solid;
+            border-radius: 30px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        input[type=text] {
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        input[type=button]{
+            display: fixed;
+            bottom: 0px;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>防脱发理疗群欢迎您！！！    <span id="username"><%= username %></span></h1>
+        <div class="chat-box">
+            <ul class="chat-content">
+            </ul>
+        </div>
+        <div class="speak">
+            <input type="text" name="speak-content" class="speak-content" />
+            <input type="button" value="发言" id="launch" />
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+    const socket = io();
+
+    const lunch = document.querySelector('#launch');
+    const user = document.querySelector('#username');
+    const ul = document.querySelector('.chat-content');
+
+    function speak(){
+        let content = document.querySelector('.speak-content').value;
+        if (content) {
+            socket.emit('content', {
+                'content':content,
+                'username': user.innerText
+            });
+            document.querySelector('.speak-content').value = null;
+        }
+    }
+
+    lunch.onclick = ()=>{speak()};
+
+    document.onkeydown = (e) => {
+        if (e.keyCode == 13) {
+            speak();
+        }
+    }
+    
+    socket.on('content', (msg) => {
+        let li = document.createElement('li');
+        li.innerText = msg.username + ':'+ msg.content;
+        ul.appendChild(li)
+    })
+</script>
+
+</html>
